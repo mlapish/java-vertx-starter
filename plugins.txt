@@ -1,2 +1,1 @@
-docker-build-step:1.41
 maven:2.15.1
