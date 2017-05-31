@@ -1,1 +1,2 @@
 maven:2.15.1
+pipeline-maven:2.3.1
