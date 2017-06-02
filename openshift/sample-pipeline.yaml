@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: List
+metadata: {}
+items:
+- apiVersion: v1
+  kind: BuildConfig
+  metadata:
+    annotations:
+      pipeline.alpha.openshift.io/uses: '[{"name": "java-vertx-starter", "namespace": "", "kind": "DeploymentConfig"}]'
+    name: java-vertx-starter-pipeline
+  spec:
+    source:
+      git:
+        ref: pipeline
+        uri: https://github.com/mlapish/java-vertx-starter.git
+      type: Git
+    strategy:
+      type: JenkinsPipeline
+      jenkinsPipelineStrategy:
+        jenkinsfilePath: Jenkinsfile
+    triggers:
+    - generic:
+        secret: FiArdDBH
+      type: Generic
