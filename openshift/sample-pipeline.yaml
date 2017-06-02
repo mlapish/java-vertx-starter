@@ -11,7 +11,6 @@ items:
   spec:
     source:
       git:
-        ref: pipeline
         uri: https://github.com/mlapish/java-vertx-starter.git
       type: Git
     strategy:
