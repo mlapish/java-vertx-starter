@@ -6,7 +6,7 @@ items:
   kind: BuildConfig
   metadata:
     annotations:
-      pipeline.alpha.openshift.io/uses: '[{"name": "java-vertx-starter", "namespace": "java-vertx-starter-2", "kind": "DeploymentConfig"}]'
+      pipeline.alpha.openshift.io/uses: '[{"name": "java-vertx-starter", "namespace": "java-vertx-starter", "kind": "DeploymentConfig"}]'
     name: java-vertx-starter-pipeline
   spec:
     source:
