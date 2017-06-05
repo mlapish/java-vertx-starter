@@ -60,6 +60,7 @@ objects:
         name: java-vertx-starter
       spec:
         containers:
+        - env:
           image: java-vertx-starter
           imagePullPolicy: Always
           livenessProbe:
