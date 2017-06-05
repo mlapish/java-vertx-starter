@@ -3,7 +3,7 @@ kind: Template
 metadata:
   annotations:
     iconClass: icon-java
-  name: cart
+  name: java-vertx-starter
 objects:
 - apiVersion: v1
   kind: ImageStream
@@ -17,7 +17,7 @@ objects:
 - apiVersion: v1
   kind: BuildConfig
   metadata:
-    name: cart
+    name: java-vertx-starter
     labels:
       application: java-vertx-starter
   spec:
@@ -57,7 +57,7 @@ objects:
         labels:
           application: java-vertx-starter
           deploymentconfig: java-vertx-starter
-        name: cart
+        name: java-vertx-starter
       spec:
         containers:
           image: java-vertx-starter
@@ -72,7 +72,7 @@ objects:
             periodSeconds: 5
             successThreshold: 1
             timeoutSeconds: 1
-          name: cart
+          name: java-vertx-starter
           ports:          
           - containerPort: 8080
             name: http
@@ -128,7 +128,7 @@ objects:
   metadata:
     labels:
       application: java-vertx-starter
-    name: cart
+    name: java-vertx-starter
   spec:
     to:
       kind: Service
@@ -138,7 +138,7 @@ parameters:
 - displayName: Application name
   name: APPLICATION_NAME
   required: true
-  value: cart
+  value: java-vertx-starter
 - description: Git source URI for application
   displayName: Git source repository
   name: GIT_URI
