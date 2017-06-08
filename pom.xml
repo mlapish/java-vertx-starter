@@ -11,7 +11,7 @@
 
   <properties>
     <!-- the main class -->
-    <exec.mainClass>io.vertx.example.HelloWorldEmbedded</exec.mainClass>
+    <exec.mainClass>com.telus.starter.HelloWorldExec</exec.mainClass>
   </properties>
 
   <dependencies>
