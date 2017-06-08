@@ -1,4 +1,9 @@
-podTemplate(label: 'buildpod', inheritFrom: 'maven', serviceAccount: 'jenkins', cloud: 'openshift') {
+podTemplate(label: 'buildpod', inheritFrom: 'maven', serviceAccount: 'jenkins', cloud: 'openshift',
+           envVars: [
+            podEnvVar(key: 'https_proxy', value: 'http://webproxystatic-on.tsl.telus.com:8080'),
+            podEnvVar(key: 'no_proxy', value: '100.65.128.1'),
+            podEnvVar(key: 'MAVEN_MIRROR_URL', value: 'http://mavenrepository.tsl.telus.com/nexus/service/local/repositories/central/content')
+        ] ) {
    node('buildpod') {
       stage('Preparation') { // for display purposes
          // Get some code from a GitHub repository
