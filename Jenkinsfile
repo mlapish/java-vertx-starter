@@ -15,9 +15,10 @@ node('maven') {
       } else {
          bat(/mvn -Dmaven.test.failure.ignore clean package/)
       }
+      stash name:"jar", includes:"target/java-vertx-starter.jar"
    }
-   stage('Results') {
-      junit '**/target/surefire-reports/TEST-*.xml'
-      archive 'target/*.jar'
+   stage('Build Image') {
+      unstash name:"jar"
+      sh "oc start-build java-vertx-starter --from-file=target/java-vertx-starter.jar --follow"
    }
 }
