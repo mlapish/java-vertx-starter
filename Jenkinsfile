@@ -11,7 +11,7 @@ node('maven') {
    stage('Build') {
       // Run the maven build
       if (isUnix()) {
-         sh "mvn -Dmaven.repo.remote=http://mavenrepository.tsl.telus.com/nexus/content/groups/telus-authorized/ -Dmaven.test.failure.ignore clean package"
+         sh "mvn -Dhttp.proxyHost=webproxystatic-on.tsl.telus.com -Dhttp.proxyPort=8080 -Dmaven.test.failure.ignore clean package"
       } else {
          bat(/mvn -Dmaven.test.failure.ignore clean package/)
       }
