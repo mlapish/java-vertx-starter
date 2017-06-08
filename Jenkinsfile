@@ -11,7 +11,7 @@ node('maven') {
    stage('Build') {
       // Run the maven build
       if (isUnix()) {
-         sh "mvn -Dhttps.proxyHost=webproxystatic-on.tsl.telus.com -Dhttps.proxyPort=8080 -Dmaven.test.failure.ignore clean package"
+         sh "mvn -Dmaven.test.failure.ignore clean package"
       } else {
          bat(/mvn -Dmaven.test.failure.ignore clean package/)
       }
