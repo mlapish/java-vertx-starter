@@ -25,20 +25,20 @@ objects:
       to:
         kind: ImageStreamTag
         name: java-vertx-starter:latest
+    postCommit: {}
+    resources: {}
+    runPolicy: Serial
     source:
-      git:
-        ref: ${GIT_REF}
-        uri: ${GIT_URI}
-      type: Git
+      binary: {}
+      type: Binary
     strategy:
       sourceStrategy:
         from:
           kind: ImageStreamTag
-          name: redhat-openjdk18-openshift:1.0
-          namespace: ${IMAGE_STREAM_NAMESPACE}
+          name: redhat-openjdk18-openshift:latest
+          namespace: openshift
       type: Source
     triggers:
-    - type: ConfigChange
 - apiVersion: v1
   kind: DeploymentConfig
   metadata:
@@ -94,7 +94,7 @@ objects:
               cpu: 1
             requests:
               memory: 512Mi
-              cpu: 200m
+              cpu: 250m
           terminationMessagePath: /dev/termination-log
         dnsPolicy: ClusterFirst
         restartPolicy: Always
@@ -135,25 +135,4 @@ objects:
       kind: Service
       name: java-vertx-starter
       weight: 100
-parameters:
-- displayName: Application name
-  name: APPLICATION_NAME
-  required: true
-  value: java-vertx-starter
-- description: Git source URI for application
-  displayName: Git source repository
-  name: GIT_URI
-  required: true
-  value: https://github.com/mlapish/java-vertx-starter.git
-- description: Git branch/tag reference
-  displayName: Git branch/tag reference
-  name: GIT_REF
-  value: master
-- description: Maven mirror url. If nexus is deployed locally, use nexus url (e.g. http://nexus.ci:8081/content/groups/public/)
-  displayName: Maven mirror url
-  name: MAVEN_MIRROR_URL
-- displayName: ImageStream Namespace
-  description: Namespace in which the ImageStreams for Red Hat OpenJDK image is installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.
-  name: IMAGE_STREAM_NAMESPACE
-  required: true
-  value: openshift
+
