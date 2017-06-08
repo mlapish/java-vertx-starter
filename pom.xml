@@ -67,7 +67,7 @@
               </transformers>
               <artifactSet>
               </artifactSet>
-              <outputFile>${project.build.directory}/${project.artifactId}-${project.version}-fat.jar</outputFile>
+              <outputFile>java-vertx-starter.jar</outputFile>
             </configuration>
           </execution>
         </executions>
@@ -88,7 +88,7 @@
               <executable>java</executable>
               <arguments>
                 <argument>-jar</argument>
-                <argument>target/${project.artifactId}-${project.version}-fat.jar</argument>
+                <argument>target/java-vertx-starter.jar</argument>
               </arguments>
             </configuration>
           </execution>
