@@ -11,9 +11,9 @@ node('maven') {
    stage('Build') {
       // Run the maven build
       if (isUnix()) {
-         sh "mvn -Dmaven.test.failure.ignore clean package"
+         sh "mvn package"
       } else {
-         bat(/mvn -Dmaven.test.failure.ignore clean package/)
+         bat(/mvn package/)
       }
       stash name:"jar", includes:"target/java-vertx-starter.jar"
    }
