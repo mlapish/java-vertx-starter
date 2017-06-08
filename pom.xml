@@ -10,8 +10,8 @@
   <version>3.4.1</version>
 
   <properties>
-    <!-- the main class -->
-    <exec.mainClass>com.telus.starter.HelloWorld</exec.mainClass>
+    <!-- the main Verticle -->
+    <exec.verticle>com.telus.starter.HelloWorld</exec.verticle>
   </properties>
 
   <dependencies>
@@ -58,7 +58,8 @@
               <transformers>
                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                   <manifestEntries>
-                    <Main-Class>${exec.mainClass}</Main-Class>
+                    <Main-Class>io.vertx.core.Launcher</Main-Class>
+                    <Main-Verticle>${main.verticle}</Main-Verticle>
                   </manifestEntries>
                 </transformer>
                 <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
