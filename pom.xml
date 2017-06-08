@@ -11,7 +11,7 @@
 
   <properties>
     <!-- the main class -->
-    <exec.mainClass>com.telus.starter.HelloWorldExec</exec.mainClass>
+    <exec.mainClass>com.telus.starter.HelloWorld</exec.mainClass>
   </properties>
 
   <dependencies>
