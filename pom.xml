@@ -11,7 +11,7 @@
 
   <properties>
     <!-- the main Verticle -->
-    <exec.verticle>com.telus.starter.HelloWorld</exec.verticle>
+    <main.verticle>com.telus.starter.HelloWorld</main.verticle>
   </properties>
 
   <dependencies>
