@@ -16,7 +16,7 @@ public class HelloWorld extends AbstractVerticle {
       rc.response().end("Hello World");
     });
     
-    router.get("/healthz").handler(rc -> {
+    router.get("/health").handler(rc -> {
       rc.response().end("OK");
     });
 
