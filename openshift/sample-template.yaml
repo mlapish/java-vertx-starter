@@ -160,3 +160,12 @@ parameters:
   name: APPLICATION_NAME
   required: true
   value: java-vertx-starter
+- description: Git source URI for application
+  displayName: Git source repository
+  name: GIT_URI
+  required: true
+  value: https://github.com/mlapish/java-vertx-starter.git
+- description: Git branch/tag reference
+  displayName: Git branch/tag reference
+  name: GIT_REF
+  value: master
