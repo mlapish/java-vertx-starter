@@ -3,28 +3,28 @@ kind: Template
 metadata:
   annotations:
     iconClass: icon-java
-  name: java-vertx-starter
+  name: ${APPLICATION_NAME}
 objects:
 - apiVersion: v1
   kind: ImageStream
   metadata:
-    name: java-vertx-starter
+    name: ${APPLICATION_NAME}
     labels:
-      application: java-vertx-starter
+      application: ${APPLICATION_NAME}
   spec:
     tags:
     - name: latest
 - apiVersion: v1
   kind: BuildConfig
   metadata:
-    name: java-vertx-starter
+    name: ${APPLICATION_NAME}
     labels:
-      application: java-vertx-starter
+      application: ${APPLICATION_NAME}
   spec:
     output:
       to:
         kind: ImageStreamTag
-        name: java-vertx-starter:latest
+        name: ${APPLICATION_NAME}:latest
     postCommit: {}
     resources: {}
     runPolicy: Serial
@@ -42,26 +42,26 @@ objects:
 - apiVersion: v1
   kind: DeploymentConfig
   metadata:
-    name: java-vertx-starter
+    name: ${APPLICATION_NAME}
     labels:
-      application: java-vertx-starter
+      application: ${APPLICATION_NAME}
   spec:
     replicas: 1
     selector:
-      deploymentconfig: java-vertx-starter
+      deploymentconfig: ${APPLICATION_NAME}
     strategy:
       resources: {}
       type: Recreate
     template:
       metadata:
         labels:
-          application: java-vertx-starter
-          deploymentconfig: java-vertx-starter
-        name: java-vertx-starter
+          application: ${APPLICATION_NAME}
+          deploymentconfig: ${APPLICATION_NAME}
+        name: ${APPLICATION_NAME}
       spec:
         containers:
         - env:
-          image: java-vertx-starter
+          image: ${APPLICATION_NAME}
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 5
@@ -73,7 +73,7 @@ objects:
             periodSeconds: 5
             successThreshold: 1
             timeoutSeconds: 1
-          name: java-vertx-starter
+          name: ${APPLICATION_NAME}
           ports:          
           - containerPort: 8080
             name: http
@@ -104,35 +104,39 @@ objects:
     - imageChangeParams:
         automatic: true
         containerNames:
-        - java-vertx-starter
+        - ${APPLICATION_NAME}
         from:
           kind: ImageStreamTag
-          name: java-vertx-starter:latest
+          name: ${APPLICATION_NAME}:latest
       type: ImageChange
     - type: ConfigChange
 - apiVersion: v1
   kind: Service
   metadata:
     labels:
-      app: java-vertx-starter
-      application: java-vertx-starter
-    name: java-vertx-starter
+      app: ${APPLICATION_NAME}
+      application: ${APPLICATION_NAME}
+    name: ${APPLICATION_NAME}
   spec:
     ports:
     - port: 8080
       protocol: TCP
       targetPort: 8080
     selector:
-      deploymentconfig: java-vertx-starter
+      deploymentconfig: ${APPLICATION_NAME}
 - apiVersion: v1
   kind: Route
   metadata:
     labels:
-      application: java-vertx-starter
-    name: java-vertx-starter
+      application: ${APPLICATION_NAME}
+    name: ${APPLICATION_NAME}
   spec:
     to:
       kind: Service
-      name: java-vertx-starter
+      name: ${APPLICATION_NAME}
       weight: 100
-
+parameters:
+- displayName: Application name
+  name: APPLICATION_NAME
+  required: true
+  value: java-vertx-starter
