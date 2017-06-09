@@ -4,6 +4,8 @@ import io.vertx.core.Vertx;
 import io.vertx.core.Handler;
 import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.json.JsonObject;
+import io.vertx.ext.web.Router;
 
 /**
  * @author Michael Lapish
