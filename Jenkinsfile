@@ -21,7 +21,7 @@ podTemplate(label: 'buildpod', inheritFrom: 'maven', serviceAccount: 'jenkins', 
       }
       stage('Build Image') {
          unstash name:"jar"
-         sh "oc start-build ${params.BUILD_CONFIG} --from-file=target/java-vertx-starter.jar --follow"
+         sh "oc start-build vertx-app --from-file=target/java-vertx-starter.jar --follow"
       }
    }
 }
