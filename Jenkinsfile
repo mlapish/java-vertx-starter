@@ -5,7 +5,10 @@ podTemplate(label: 'buildpod', inheritFrom: 'maven', serviceAccount: 'jenkins', 
             containerEnvVar(key: 'no_proxy', value: '100.65.128.1'),   
             containerEnvVar(key: 'MAVEN_MIRROR_URL', value: 'http://mavenrepository.tsl.telus.com/nexus/service/local/repositories/central/content')
         ])] ) {
-   node('buildpod') {
+    parameters {
+        string(name: 'BUILD_CONFIG', defaultValue: 'java-vertx-starter', description: 'Build Configuration created in Openshift')
+    } 
+    node('buildpod') {    
       stage('Preparation') { // for display purposes
          // Get some code from a GitHub repository
          git 'https://github.com/mlapish/java-vertx-starter.git'
@@ -21,7 +24,7 @@ podTemplate(label: 'buildpod', inheritFrom: 'maven', serviceAccount: 'jenkins', 
       }
       stage('Build Image') {
          unstash name:"jar"
-         sh "oc start-build java-vertx-starter --from-file=target/java-vertx-starter.jar --follow"
+         sh "oc start-build ${params.BUILD_CONFIG} --from-file=target/java-vertx-starter.jar --follow"
       }
    }
 }
