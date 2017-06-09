@@ -17,7 +17,7 @@ public class HelloWorld extends AbstractVerticle {
     });
     
     router.get("/health").handler(rc -> {
-      rc.response().end("OK");
+      rc.response().putHeader("content-type", "application/json; charset=utf-8").end(new JsonObject().put("status", "OK").encode());
     });
 
     vertx.createHttpServer()
