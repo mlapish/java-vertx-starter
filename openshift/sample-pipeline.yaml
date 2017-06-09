@@ -6,12 +6,13 @@ items:
   kind: BuildConfig
   metadata:
     annotations:
-      pipeline.alpha.openshift.io/uses: '[{"name": "java-vertx-starter", "namespace": "", "kind": "DeploymentConfig"}]'
-    name: java-vertx-starter-pipeline
+      pipeline.alpha.openshift.io/uses: '[{"name": "${APPLICATION_NAME}", "namespace": "", "kind": "DeploymentConfig"}]'
+    name: ${APPLICATION_NAME}-pipeline
   spec:
     source:
       git:
-        uri: https://github.com/mlapish/java-vertx-starter.git
+        uri: ${GIT_URI}
+        ref: ${GIT_REF}
       type: Git
     strategy:
       type: JenkinsPipeline
@@ -21,3 +22,17 @@ items:
     - generic:
         secret: FiArdDBH
       type: Generic
+parameters:
+- displayName: Application name
+  name: APPLICATION_NAME
+  required: true
+  value: cart
+- description: Git source URI for application
+  displayName: Git source repository
+  name: GIT_URI
+  required: true
+  value: https://github.com/mlapish/java-vertx-starter.git
+- description: Git branch/tag reference
+  displayName: Git branch/tag reference
+  name: GIT_REF
+  value: master
