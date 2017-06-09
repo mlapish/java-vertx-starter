@@ -20,6 +20,8 @@ objects:
     annotations:
       pipeline.alpha.openshift.io/uses: '[{"name": "${APPLICATION_NAME}", "namespace": "", "kind": "DeploymentConfig"}]'
     name: ${APPLICATION_NAME}-pipeline
+    labels:
+      application: ${APPLICATION_NAME}
   spec:
     source:
       git:
