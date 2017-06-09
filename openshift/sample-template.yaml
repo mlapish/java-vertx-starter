@@ -17,6 +17,26 @@ objects:
 - apiVersion: v1
   kind: BuildConfig
   metadata:
+    annotations:
+      pipeline.alpha.openshift.io/uses: '[{"name": "${APPLICATION_NAME}", "namespace": "", "kind": "DeploymentConfig"}]'
+    name: ${APPLICATION_NAME}-pipeline
+  spec:
+    source:
+      git:
+        uri: ${GIT_URI}
+        ref: ${GIT_REF}
+      type: Git
+    strategy:
+      type: JenkinsPipeline
+      jenkinsPipelineStrategy:
+        jenkinsfilePath: Jenkinsfile
+    triggers:
+    - generic:
+        secret: FiArdDBH
+      type: Generic
+- apiVersion: v1
+  kind: BuildConfig
+  metadata:
     name: ${APPLICATION_NAME}
     labels:
       application: ${APPLICATION_NAME}
