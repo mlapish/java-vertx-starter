@@ -10,10 +10,18 @@ import io.vertx.core.AbstractVerticle;
  */
 public class HelloWorld extends AbstractVerticle {
   public void start() {
-    vertx.createHttpServer().requestHandler(req -> {
-      req.response()
-        .putHeader("content-type", "text/plain")
-        .end("Hello World");
-    }).listen(8080);
+    Router router = Router.router(vertx);
+    
+    router.get("/").handler(rc -> {
+      rc.response().end("Hello World");
+    });
+    
+    router.get("/healthz").handler(rc -> {
+      rc.response().end("OK");
+    });
+
+    vertx.createHttpServer()
+        .requestHandler(router::accept)
+        .listen(8080);
   }
 }
