@@ -8,7 +8,8 @@ podTemplate(label: 'buildpod', inheritFrom: 'maven', serviceAccount: 'jenkins', 
     node('buildpod') {    
       stage('Preparation') { // for display purposes
          // Get some code from a GitHub repository
-         git 'https://github.com/mlapish/java-vertx-starter.git'
+         String appName = "java-vertx-starter"
+         git 'https://github.com/mlapish/${appName}.git'
       }
       stage('Build') {
          // Run the maven build
@@ -17,11 +18,11 @@ podTemplate(label: 'buildpod', inheritFrom: 'maven', serviceAccount: 'jenkins', 
          } else {
             bat(/mvn package/)
          }
-         stash name:"jar", includes:"target/java-vertx-starter.jar"
+         stash name:"jar", includes:"target/${appName}.jar"
       }
       stage('Build Image') {
          unstash name:"jar"
-         sh "oc start-build vertx-app --from-file=target/java-vertx-starter.jar --follow"
+         sh "oc start-build ${appName} --from-file=target/${appName} --follow"
       }
    }
 }
