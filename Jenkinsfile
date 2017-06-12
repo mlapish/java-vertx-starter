@@ -9,7 +9,7 @@ podTemplate(label: 'buildpod', inheritFrom: 'maven', serviceAccount: 'jenkins', 
       stage('Preparation') { // for display purposes
          // Get some code from a GitHub repository
          String appName = "java-vertx-starter"
-         git 'https://github.com/mlapish/${appName}.git'
+         git "https://github.com/mlapish/${appName}.git"
       }
       stage('Build') {
          // Run the maven build
