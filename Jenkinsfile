@@ -25,7 +25,7 @@ podTemplate(label: 'buildpod', inheritFrom: 'maven', serviceAccount: 'jenkins', 
          sh "oc start-build java-vertx-starter --from-file=target/java-vertx-starter.jar --follow"
       }
     }
-    podTemplate(label: 'docker', inheritFrom: 'maven', serviceAccount: 'builder',cloud: 'openshift', containers: [containerTemplate(name: 'docker', image: 'docker', command: 'cat', ttyEnabled: true)],
+    podTemplate(label: 'docker', inheritFrom: 'maven', serviceAccount: 'builder',cloud: 'openshift', containers: [containerTemplate(name: 'jnlp', image: 'docker', command: 'cat', ttyEnabled: true)],
         volumes: [hostPathVolume(hostPath: '/var/run/docker.sock', mountPath: '/var/run/docker.sock')]) { 
         node('docker'){
         stage('Docker Test') {
