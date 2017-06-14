@@ -27,9 +27,11 @@ podTemplate(label: 'buildpod', inheritFrom: 'maven', serviceAccount: 'jenkins', 
     }
     podTemplate(label: 'docker', serviceAccount: 'builder', containers: [containerTemplate(name: 'docker', image: 'docker', command: 'cat', ttyEnabled: true)],
         volumes: [hostPathVolume(hostPath: '/var/run/docker.sock', mountPath: '/var/run/docker.sock')]) { 
+        node('docker'){
         stage('Docker Test') {
             sh "docker login http://100.65.143.111:5000 -u jenkins -p `oc sa get-token jenkins`"
             sh "docker pull 100.65.143.111:5000/quota-test/java-vertx-starter"
+        }
         }
    }
 }
