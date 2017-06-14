@@ -24,5 +24,9 @@ podTemplate(label: 'buildpod', inheritFrom: 'maven', serviceAccount: 'jenkins', 
          unstash name:"jar"
          sh "oc start-build java-vertx-starter --from-file=target/java-vertx-starter.jar --follow"
       }
+        stage('Docker Test') {
+            sh "cp /var/run/secrets/openshift.io/pull/.dockercfg /root/.docker/config.json"
+            sh "docker pull 100.65.143.111:5000/quota-test/java-vertx-starter"
+        }
    }
 }
