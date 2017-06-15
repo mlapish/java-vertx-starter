@@ -5,7 +5,7 @@ podTemplate(label: 'buildpod', inheritFrom: 'maven', privileged: true, serviceAc
             containerEnvVar(key: 'no_proxy', value: '100.65.128.1'),   
             containerEnvVar(key: 'MAVEN_MIRROR_URL', value: 'http://mavenrepository.tsl.telus.com/nexus/service/local/repositories/central/content')
         ])]
-            ,volumes: [hostPathVolume(hostPath: '/var/run/docker.sock', mountPath: '/var/run/docker.sock')]
+            //,volumes: [hostPathVolume(hostPath: '/var/run/docker.sock', mountPath: '/var/run/docker.sock')]
             ) { 
     node('buildpod') {    
       stage('Preparation') { // for display purposes
