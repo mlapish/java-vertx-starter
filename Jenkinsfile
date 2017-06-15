@@ -1,5 +1,5 @@
 podTemplate(label: 'buildpod', inheritFrom: 'maven', privileged: true, serviceAccount: 'jenkins', cloud: 'openshift', containers: [
-    containerTemplate(name: 'jnlp',  image: 'openshift/jenkins-slave-maven-centos7',
+    containerTemplate(name: 'jnlp',  image: 'telus/jenkins-slave',
            envVars: [
             containerEnvVar(key: 'https_proxy', value: 'http://webproxystatic-on.tsl.telus.com:8080'),
             containerEnvVar(key: 'no_proxy', value: '100.65.128.1'),   
