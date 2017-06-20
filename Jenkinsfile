@@ -24,13 +24,14 @@ podTemplate(label: 'buildpod', inheritFrom: 'maven', privileged: true, serviceAc
          }
          stash name:"jar", includes:"target/java-vertx-starter.jar"
       }
-      //stage('Build Image') {
-      //   unstash name:"jar"
-      //   sh "oc start-build java-vertx-starter --from-file=target/java-vertx-starter.jar --follow"
-      //}
+      stage('Build Image') {
+         unstash name:"jar"
+         sh "oc start-build java-vertx-starter --from-file=target/java-vertx-starter.jar --follow"
+      }
       stage('Docker Test') {        
             sh "sudo docker login http://100.65.143.111:5000 -u jenkins -p `oc whoami -t`"
-            sh "docker pull 100.65.143.111:5000/quota-test/java-vertx-starter"
+            sh "sudo docker pull 100.65.143.111:5000/jenkins2-test/java-vertx-starter"
+            sh "sudo docker tag 100.65.143.111:5000/jenkins2-test/java-vertx-starter:latest repomgr.tsl.telus.com:19903/jenkins2-test/quota-test:OCT2017"
       }
    }
 }
