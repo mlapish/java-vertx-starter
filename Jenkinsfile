@@ -1,4 +1,4 @@
-podTemplate(label: 'buildpod', inheritFrom: 'maven', privileged: true, serviceAccount: 'jenkins', cloud: 'openshift', containers: [
+podTemplate(label: 'buildpod', inheritFrom: 'maven', privileged: true, serviceAccount: 'builder', cloud: 'openshift', containers: [
     containerTemplate(name: 'jnlp',  image: 'repomgr.tsl.telus.com:19903/telus/jenkins-slave:latest',
                       //alwaysPullImage: true,
            envVars: [
@@ -24,10 +24,10 @@ podTemplate(label: 'buildpod', inheritFrom: 'maven', privileged: true, serviceAc
          }
          stash name:"jar", includes:"target/java-vertx-starter.jar"
       }
-      stage('Build Image') {
-         unstash name:"jar"
-         sh "oc start-build java-vertx-starter --from-file=target/java-vertx-starter.jar --follow"
-      }
+      //stage('Build Image') {
+      //   unstash name:"jar"
+      //   sh "oc start-build java-vertx-starter --from-file=target/java-vertx-starter.jar --follow"
+      //}
       stage('Docker Test') {
             sh "docker login http://100.65.143.111:5000 -u jenkins -p `oc sa get-token jenkins`"
             sh "docker pull 100.65.143.111:5000/quota-test/java-vertx-starter"
