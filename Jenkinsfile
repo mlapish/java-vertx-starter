@@ -1,4 +1,4 @@
-podTemplate(label: 'buildpod', inheritFrom: 'maven', privileged: true, serviceAccount: 'builder', cloud: 'openshift', containers: [
+podTemplate(label: 'buildpod', inheritFrom: 'maven', privileged: true, serviceAccount: 'jenkins', cloud: 'openshift', containers: [
     containerTemplate(name: 'jnlp',  image: 'repomgr.tsl.telus.com:19903/telus/jenkins-slave',
                       //alwaysPullImage: true,
            envVars: [
