@@ -28,9 +28,8 @@ podTemplate(label: 'buildpod', inheritFrom: 'maven', privileged: true, serviceAc
       //   unstash name:"jar"
       //   sh "oc start-build java-vertx-starter --from-file=target/java-vertx-starter.jar --follow"
       //}
-      stage('Docker Test') {
-            sh "oc whoami -t"
-            sh "docker login http://100.65.143.111:5000 -u jenkins -p `oc sa get-token builder`"
+      stage('Docker Test') {        
+            sh "docker login http://100.65.143.111:5000 -u jenkins -p `oc whoami -t`"
             sh "docker pull 100.65.143.111:5000/quota-test/java-vertx-starter"
       }
    }
