@@ -1,7 +1,3 @@
-def project = sh "oc project -q"
-
-echo ${project}
-
 podTemplate(label: 'buildpod', inheritFrom: 'maven', privileged: true, serviceAccount: 'jenkins', cloud: 'openshift', containers: [
     containerTemplate(name: 'jnlp',  image: 'repomgr.tsl.telus.com:19903/telus/jenkins-slave',
                       //alwaysPullImage: true,
@@ -14,6 +10,9 @@ podTemplate(label: 'buildpod', inheritFrom: 'maven', privileged: true, serviceAc
             ,volumes: [hostPathVolume(hostPath: '/var/run/docker.sock', mountPath: '/var/run/docker.sock')]
             ) { 
     node('buildpod') {    
+      def project = sh "oc project -q"
+
+      echo ${project}
       stage('Preparation') { // for display purposes
          // Get some code from a GitHub repository
          String appName = "java-vertx-starter"
