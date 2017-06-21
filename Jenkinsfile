@@ -10,9 +10,9 @@ podTemplate(label: 'buildpod', inheritFrom: 'maven', privileged: true, serviceAc
             ,volumes: [hostPathVolume(hostPath: '/var/run/docker.sock', mountPath: '/var/run/docker.sock')]
             ) { 
     node('buildpod') {    
-      def project = sh "oc project -q"
-
-      echo ${project}
+      def project = fileLoader.fromGit('fileLoader/project', 'https://github.com/mlapish/java-vertx-starter.git', 'master', null, '')
+      echo project.name()
+        
       stage('Preparation') { // for display purposes
          // Get some code from a GitHub repository
          String appName = "java-vertx-starter"
