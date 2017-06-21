@@ -1,4 +1,4 @@
-podTemplate(label: 'buildpod', inheritFrom: 'maven', privileged: true, serviceAccount: 'jenkins', cloud: 'openshift', containers: [
+podTemplate(label: 'buildpod', inheritFrom: 'maven', privileged: true, serviceAccount: 'jenkins', cloud: 'openshift', idleMinutesStr: 2, containers: [
     containerTemplate(name: 'jnlp',  image: 'repomgr.tsl.telus.com:19903/telus/jenkins-slave',
                       //alwaysPullImage: true,
            envVars: [
@@ -28,12 +28,17 @@ podTemplate(label: 'buildpod', inheritFrom: 'maven', privileged: true, serviceAc
          unstash name:"jar"
          sh "oc start-build java-vertx-starter --from-file=target/java-vertx-starter.jar --follow"
           
-      }
+      }      
+   }
+    timeout(time:5, unit:'DAYS') {
+        input message:'Approve deployment?', submitter: 'it-ops'
+    }
+    node ('buildpod'){
       stage('Docker Test') {        
             sh "sudo docker login http://100.65.143.111:5000 -u jenkins -p `oc whoami -t`"
             sh "sudo docker pull 100.65.143.111:5000/jenkins2-test/java-vertx-starter"
             sh "sudo docker tag 100.65.143.111:5000/jenkins2-test/java-vertx-starter:latest docker-registry-default.paas-app-east.tsl.telus.com/em-sandbox/java-vertx-starter:latest"
             sh "sudo docker push docker-registry-default.paas-app-east.tsl.telus.com/em-sandbox/java-vertx-starter:latest"
       }
-   }
+    }
 }
