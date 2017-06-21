@@ -11,7 +11,7 @@ podTemplate(label: 'buildpod', inheritFrom: 'maven', privileged: true, serviceAc
             ) { 
     node('buildpod') {    
       def project = fileLoader.fromGit('fileLoader/project', 'https://github.com/mlapish/java-vertx-starter.git', 'master', null, '')
-      echo project.name()
+      echo project.name
         
       stage('Preparation') { // for display purposes
          // Get some code from a GitHub repository
