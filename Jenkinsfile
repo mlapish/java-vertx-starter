@@ -31,8 +31,8 @@ podTemplate(label: 'buildpod', inheritFrom: 'maven', privileged: true, serviceAc
       }      
       stage('Docker Test') {        
             sh "sudo docker login http://100.65.143.111:5000 -u jenkins -p `oc whoami -t`"
-            sh "sudo docker pull 100.65.143.111:5000/jenkins2-test/java-vertx-starter"
-            sh "sudo docker tag 100.65.143.111:5000/jenkins2-test/java-vertx-starter:latest docker-registry-default.paas-app-east.tsl.telus.com/em-sandbox/java-vertx-starter:latest"
+            sh "sudo docker pull 100.65.143.111:5000/pipeline-demo/java-vertx-starter"
+            sh "sudo docker tag 100.65.143.111:5000/pipeline-demo/java-vertx-starter:latest docker-registry-default.paas-app-east.tsl.telus.com/em-sandbox/java-vertx-starter:latest"
             sh "sudo docker push docker-registry-default.paas-app-east.tsl.telus.com/em-sandbox/java-vertx-starter:latest"
       }
    }
