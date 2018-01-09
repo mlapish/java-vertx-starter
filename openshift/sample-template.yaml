@@ -153,6 +153,7 @@ objects:
       application: ${APPLICATION_NAME}
     name: ${APPLICATION_NAME}
   spec:
+    host: ${APPLICATION_NAME}.paas-app-east-np.tsl.telus.com
     to:
       kind: Service
       name: ${APPLICATION_NAME}
