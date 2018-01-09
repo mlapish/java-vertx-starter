@@ -12,7 +12,7 @@ podTemplate(label: 'buildpod', inheritFrom: 'maven', privileged: true, serviceAc
       envVars: [
         containerEnvVar(key: 'https_proxy', value: 'http://webproxystatic-on.tsl.telus.com:8080'),
         containerEnvVar(key: 'no_proxy', value: '100.65.128.1,.tsl.telus.com'),
-        containerEnvVar(key: 'MAVEN_MIRROR_URL', value: 'http://mavenrepository.tsl.telus.com/nexus/content/repositories/telus-build-authorized'),
+        containerEnvVar(key: 'MAVEN_MIRROR_URL', value: 'http://mavenrepository.tsl.telus.com/nexus/service/local/repositories/central/content'),
         containerEnvVar(key: 'BUILD_URL', value: env.BUILD_URL),
         containerEnvVar(key: 'JENKINS_NAME', value: 'buildpod'),
         containerEnvVar(key: '_JAVA_OPTIONS', value: '-Xmx256m')
