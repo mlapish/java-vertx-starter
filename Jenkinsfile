@@ -3,6 +3,8 @@ podTemplate(label: 'buildpod', inheritFrom: 'maven', privileged: true, serviceAc
     containerTemplate(name: 'jnlp',
       image: 'repomgr.tsl.telus.com:19903/telus/jenkins-slave',
       workingDir: '/home/jenkins',
+      serviceAccount: 'jenkins',
+      nodeSelector: 'pipeline.builder=true',                      
       resourceRequestCpu: '500m',
       resourceLimitCpu: '500m',
       resourceRequestMemory: '512Mi',
