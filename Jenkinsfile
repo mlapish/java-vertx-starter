@@ -1,13 +1,28 @@
-podTemplate(label: 'buildpod', inheritFrom: 'maven', privileged: true, serviceAccount: 'jenkins', cloud: 'openshift', idleMinutesStr: 2, containers: [
-    containerTemplate(name: 'jnlp',  image: 'repomgr.tsl.telus.com:19903/telus/jenkins-slave',
-                      //alwaysPullImage: true,
-           envVars: [
-            containerEnvVar(key: 'https_proxy', value: 'http://webproxystatic-on.tsl.telus.com:8080'),
-            containerEnvVar(key: 'no_proxy', value: '100.65.128.1'),   
-            containerEnvVar(key: 'MAVEN_MIRROR_URL', value: 'http://mavenrepository.tsl.telus.com/nexus/service/local/repositories/central/content'),            
-        ])]
-            ,volumes: [hostPathVolume(hostPath: '/var/run/docker.sock', mountPath: '/var/run/docker.sock')]
-            ) { 
+podTemplate(label: 'buildpod', inheritFrom: 'maven', privileged: true, serviceAccount: 'jenkins', cloud: 'openshift', idleMinutesStr: 2, 
+    containers: [
+    containerTemplate(name: 'jnlp',
+      image: 'repomgr.tsl.telus.com:19903/telus/jenkins-slave',
+      workingDir: '/home/jenkins',
+      resourceRequestCpu: '500m',
+      resourceLimitCpu: '500m',
+      resourceRequestMemory: '512Mi',
+      resourceLimitMemory: '512Mi', 
+      envVars: [
+        containerEnvVar(key: 'https_proxy', value: 'http://webproxystatic-on.tsl.telus.com:8080'),
+        containerEnvVar(key: 'no_proxy', value: '100.65.128.1,.tsl.telus.com'),
+        containerEnvVar(key: 'MAVEN_MIRROR_URL', value: 'http://mavenrepository.tsl.telus.com/nexus/content/repositories/telus-build-authorized'),
+        containerEnvVar(key: 'BUILD_URL', value: env.BUILD_URL),
+        containerEnvVar(key: 'JENKINS_NAME', value: 'buildpod'),
+        containerEnvVar(key: '_JAVA_OPTIONS', value: '-Xmx256m')
+    ])
+    ],
+  volumes: [
+    hostPathVolume(hostPath: '/tmp/.m2/repository', mountPath: '/home/jenkins/.m2/repository'),
+    hostPathVolume(hostPath: '/tmp/.sonar', mountPath: '/home/jenkins/.sonar'),
+    secretVolume(mountPath: '/etc/imagepush', secretName: 'imagepushprod'),
+    secretVolume(mountPath: '/etc/ocprod', secretName: 'ocprod'),
+    secretVolume(mountPath: '/etc/jiraintegration', secretName: 'jiraintegration')
+ ]) { 
     node('buildpod') {    
         
       stage('Preparation') { // for display purposes
