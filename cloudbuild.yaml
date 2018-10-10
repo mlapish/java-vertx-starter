@@ -3,7 +3,7 @@ steps:
   args:
   - package
 - name: 'gcr.io/cloud-builders/docker'
-  args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/java-starter-image', '.' ]
+  args: [ 'build', '--build-arg', 'jar_name=${_TARGET}', '-t', 'gcr.io/$PROJECT_ID/java-starter-image', '.' ]
 images:
 - 'gcr.io/$PROJECT_ID/java-starter-image'
 artifacts:
