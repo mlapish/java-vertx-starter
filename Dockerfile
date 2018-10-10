@@ -5,4 +5,4 @@
 FROM gcr.io/google_appengine/openjdk:8
 ARG jar_name
 # Add application code.
-ADD target/${jar_name} /app
+COPY /target/$jar_name $APP_DESTINATION
