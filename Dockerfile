@@ -3,6 +3,6 @@
 # libraries. The source is on github at:
 #   https://github.com/GoogleCloudPlatform/python-docker
 FROM gcr.io/google_appengine/jetty9
-
+ARG jar_name
 # Add application code.
-ADD target/${_TARGET} /app
+ADD target/$jar_name /app
