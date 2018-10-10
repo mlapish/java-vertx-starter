@@ -5,4 +5,4 @@
 FROM gcr.io/google_appengine/jetty9
 ARG jar_name
 # Add application code.
-ADD target/$jar_name /app
+ADD target/${jar_name} /app
