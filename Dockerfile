@@ -1,7 +1,7 @@
-# The Google App Engine python runtime is Debian Jessie with Python installed
-# and various os-level packages to allow installation of popular Python
-# libraries. The source is on github at:
-#   https://github.com/GoogleCloudPlatform/python-docker
+# The Google App Engine openhdk. The source is on github at:
+#   https://github.com/GoogleCloudPlatform/openjdk-runtime
+# relies on the $jar_name being passed in at build time using
+# --build-args
 FROM gcr.io/google_appengine/openjdk:8
 ARG jar_name
 # Add application code.
